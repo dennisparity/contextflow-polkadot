@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: '/contextflow-polkadot/',
   server: {
     host: true, // Listen on all network interfaces
     port: 5177,
