@@ -1570,8 +1570,8 @@ function YAxisLabels() {
   const { x, y, zoom } = useViewport()
 
   const labels = [
-    { text: 'Visible', key: 'visible', yPos: 80 },
-    { text: 'Invisible', key: 'invisible', yPos: 1000 }
+    { text: 'User-facing / Value Delivery', key: 'visible', yPos: 250 },
+    { text: 'Enabling / Platform', key: 'invisible', yPos: 1000 }
   ]
 
   return (
