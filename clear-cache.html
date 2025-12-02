@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clear ContextFlow Cache</title>
+  <style>
+    body { font-family: system-ui; padding: 40px; max-width: 600px; margin: 0 auto; }
+    button { padding: 12px 24px; font-size: 16px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #2563eb; }
+    .status { margin-top: 20px; padding: 12px; border-radius: 6px; }
+    .success { background: #dcfce7; color: #166534; }
+    .error { background: #fee2e2; color: #991b1b; }
+  </style>
+</head>
+<body>
+  <h1>Clear ContextFlow Cache</h1>
+  <p>This will clear the IndexedDB cache and force reload the project from the JSON file.</p>
+  <button onclick="clearCache()">Clear Cache & Reload</button>
+  <div id="status"></div>
+
+  <script>
+    async function clearCache() {
+      const status = document.getElementById('status');
+      try {
+        // Clear IndexedDB
+        const dbs = await window.indexedDB.databases();
+        for (const db of dbs) {
+          if (db.name.includes('contextflow') || db.name.includes('ContextFlow')) {
+            await window.indexedDB.deleteDatabase(db.name);
+          }
+        }
+
+        // Clear localStorage
+        for (let key in localStorage) {
+          if (key.includes('contextflow') || key.includes('ContextFlow')) {
+            localStorage.removeItem(key);
+          }
+        }
+
+        status.className = 'status success';
+        status.textContent = '✅ Cache cleared! Redirecting to app...';
+
+        setTimeout(() => {
+          window.location.href = 'http://localhost:5177/';
+        }, 1000);
+      } catch (err) {
+        status.className = 'status error';
+        status.textContent = '❌ Error: ' + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,9 +1,32 @@
 {
   "id": "empty-project",
+  "version": 2,
   "name": "Empty Project",
   "contexts": [],
   "relationships": [],
-  "repos": [],
+  "repos": [
+    {
+      "id": "repo.substrate-connect",
+      "name": "substrate-connect",
+      "remoteUrl": "https://github.com/paritytech/substrate-connect",
+      "teamIds": [],
+      "contributors": []
+    },
+    {
+      "id": "repo.smoldot",
+      "name": "smoldot",
+      "remoteUrl": "https://github.com/smol-dot/smoldot",
+      "teamIds": [],
+      "contributors": []
+    },
+    {
+      "id": "repo.polkadot-sdk",
+      "name": "polkadot-sdk",
+      "remoteUrl": "https://github.com/paritytech/polkadot-sdk",
+      "teamIds": [],
+      "contributors": []
+    }
+  ],
   "people": [],
   "teams": [],
   "groups": [],
