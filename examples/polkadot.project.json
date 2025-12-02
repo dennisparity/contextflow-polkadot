@@ -1,7 +1,7 @@
 {
-  "id": "empty-project",
+  "id": "polkadot-project",
   "version": 2,
-  "name": "Empty Project",
+  "name": "Polkadot",
   "contexts": [],
   "relationships": [],
   "repos": [

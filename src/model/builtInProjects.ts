@@ -1,7 +1,7 @@
 import type { Project } from './types'
 import demoProject from '../../examples/sample.project.json'
 import cbioportalProject from '../../examples/cbioportal.project.json'
-import emptyProject from '../../examples/empty.project.json'
+import polkadotProject from '../../examples/polkadot.project.json'
 import elanWarrantyProject from '../../examples/elan-warranty.project.json'
 import { saveProject, loadProject, migrateProject } from './persistence'
 import { classifyFromStrategicPosition } from './classification'
@@ -21,14 +21,14 @@ import { classifyFromStrategicPosition } from './classification'
 // - Available in the project dropdown
 // ============================================================================
 export const BUILT_IN_PROJECTS = [
+  polkadotProject as Project,
   demoProject as Project,
   cbioportalProject as Project,
-  emptyProject as Project,
   elanWarrantyProject as Project,
 ]
 
 // For backwards compatibility, create named references
-export const [sampleProject, cbioportal, empty, elanWarranty] = BUILT_IN_PROJECTS
+export const [polkadot, sampleProject, cbioportal, elanWarranty] = BUILT_IN_PROJECTS
 
 // Ensure all projects have required arrays (for backwards compatibility)
 BUILT_IN_PROJECTS.forEach(project => {
@@ -78,9 +78,9 @@ BUILT_IN_PROJECTS.forEach(project => {
   })
 })
 
-// Get last active project from localStorage, or default to sample
+// Get last active project from localStorage, or default to Polkadot
 const storedProjectId = localStorage.getItem('contextflow.activeProjectId')
-export const initialActiveProjectId = storedProjectId || sampleProject.id
+export const initialActiveProjectId = storedProjectId || polkadot.id
 
 // Build initial projects map from array
 export const initialProjects = BUILT_IN_PROJECTS.reduce((acc, project) => {
@@ -96,7 +96,7 @@ export function determineProjectOrigin(
 ): ProjectOrigin {
   if (projectId === 'acme-ecommerce' || projectId === 'cbioportal' || projectId === 'elan-warranty') {
     return 'sample'
-  } else if (projectId === 'empty-project') {
+  } else if (projectId === 'empty-project' || projectId === 'polkadot-project') {
     return 'empty'
   } else if (isFirstLoad) {
     return 'imported'
