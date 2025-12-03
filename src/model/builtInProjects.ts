@@ -94,9 +94,9 @@ export function determineProjectOrigin(
   projectId: string,
   isFirstLoad: boolean
 ): ProjectOrigin {
-  if (projectId === 'acme-ecommerce' || projectId === 'cbioportal' || projectId === 'elan-warranty') {
+  if (projectId === 'polkadot-project' || projectId === 'acme-ecommerce' || projectId === 'cbioportal' || projectId === 'elan-warranty') {
     return 'sample'
-  } else if (projectId === 'empty-project' || projectId === 'polkadot-project') {
+  } else if (projectId === 'empty-project') {
     return 'empty'
   } else if (isFirstLoad) {
     return 'imported'
