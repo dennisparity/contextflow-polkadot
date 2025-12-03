@@ -10,6 +10,11 @@ interface SampleProject {
 
 const SAMPLE_PROJECTS: SampleProject[] = [
   {
+    id: 'polkadot-project',
+    name: 'Polkadot Ecosystem',
+    description: 'Polkadot architecture with distribution, SDKs, and foundation layers',
+  },
+  {
     id: 'acme-ecommerce',
     name: 'ACME E-Commerce',
     description: 'A complete online store with 20+ systems',
