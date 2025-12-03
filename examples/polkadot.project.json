@@ -1,9 +1,343 @@
 {
   "id": "polkadot-project",
   "version": 2,
-  "name": "Polkadot",
-  "contexts": [],
-  "relationships": [],
+  "name": "Polkadot Ecosystem Architecture",
+  "contexts": [
+    {
+      "id": "ctx.polkadot-com",
+      "name": "Polkadot.com",
+      "purpose": "Primary web distribution channel for Polkadot dapps and services",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 10 },
+        "strategic": { "x": 25 },
+        "shared": { "y": 15 },
+        "distillation": { "x": 20, "y": 20 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "medium" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Part of the distribution triad (Polkadot.com, Mobile App, Desktop). Progressive web app delivery model."
+    },
+    {
+      "id": "ctx.polkadot-app",
+      "name": "Polkadot App",
+      "purpose": "Mobile and desktop app for identity management, PoUD/PoP authentication, and dapp access",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 20 },
+        "strategic": { "x": 28 },
+        "shared": { "y": 15 },
+        "distillation": { "x": 25, "y": 20 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "large" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Integrates Proof-of-Personhood (PoP) and manages accounts via Spektr SDK. Critical for dapp authentication."
+    },
+    {
+      "id": "ctx.dapps",
+      "name": "Dapps (App1, App2, App N)",
+      "purpose": "Client-side applications built on Polkadot, deployed via distribution channels",
+      "strategicClassification": "supporting",
+      "boundaryIntegrity": "moderate",
+      "positions": {
+        "flow": { "x": 30 },
+        "strategic": { "x": 35 },
+        "shared": { "y": 15 },
+        "distillation": { "x": 35, "y": 25 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "medium" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Built using polkadot-ui-template. Must use light client only (no full nodes). Packaged and verified by hash."
+    },
+    {
+      "id": "ctx.papi",
+      "name": "PAPI (Polkadot API)",
+      "purpose": "JavaScript API for interacting with Polkadot chains via light clients",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 40 },
+        "strategic": { "x": 55 },
+        "shared": { "y": 35 },
+        "distillation": { "x": 50, "y": 45 }
+      },
+      "evolutionStage": "product/rental",
+      "codeSize": { "bucket": "large" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Primary API layer for dapps. Works with ScProvider for light client connections."
+    },
+    {
+      "id": "ctx.smoldot",
+      "name": "Smoldot",
+      "purpose": "Light client implementation for Polkadot, runs in browser and mobile environments",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 50 },
+        "strategic": { "x": 60 },
+        "shared": { "y": 35 },
+        "distillation": { "x": 55, "y": 45 }
+      },
+      "evolutionStage": "product/rental",
+      "codeSize": { "bucket": "huge" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Core light client technology. Accessed via @substrate/connect. Mandatory for all dapps."
+    },
+    {
+      "id": "ctx.dedot",
+      "name": "Dedot",
+      "purpose": "Alternative TypeScript API for Polkadot chains",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 60 },
+        "strategic": { "x": 58 },
+        "shared": { "y": 35 },
+        "distillation": { "x": 58, "y": 45 }
+      },
+      "evolutionStage": "product/rental",
+      "codeSize": { "bucket": "medium" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Alternative to PAPI for TypeScript developers. Light client compatible."
+    },
+    {
+      "id": "ctx.substrate-sdk",
+      "name": "Substrate SDK (iOS & Android)",
+      "purpose": "Native mobile SDKs for iOS and Android to interact with Polkadot chains",
+      "strategicClassification": "core",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 70 },
+        "strategic": { "x": 62 },
+        "shared": { "y": 35 },
+        "distillation": { "x": 60, "y": 45 }
+      },
+      "evolutionStage": "product/rental",
+      "codeSize": { "bucket": "large" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Enables native mobile app development on iOS and Android platforms."
+    },
+    {
+      "id": "ctx.block-indexer",
+      "name": "Block Indexer",
+      "purpose": "Indexes blockchain data for efficient querying and retrieval",
+      "strategicClassification": "supporting",
+      "boundaryIntegrity": "moderate",
+      "positions": {
+        "flow": { "x": 40 },
+        "strategic": { "x": 45 },
+        "shared": { "y": 55 },
+        "distillation": { "x": 45, "y": 60 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "medium" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Infrastructure service for data access patterns that require historical queries."
+    },
+    {
+      "id": "ctx.facade-proxy",
+      "name": "Facade / Proxy",
+      "purpose": "Abstraction layer and routing for backend services",
+      "strategicClassification": "supporting",
+      "boundaryIntegrity": "moderate",
+      "positions": {
+        "flow": { "x": 50 },
+        "strategic": { "x": 50 },
+        "shared": { "y": 55 },
+        "distillation": { "x": 50, "y": 60 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "small" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Service layer component for request routing and abstraction."
+    },
+    {
+      "id": "ctx.personhood-identity",
+      "name": "Personhood, Identity, Authorization",
+      "purpose": "Proof-of-Personhood (PoP), identity management via People Chain, and authorization services",
+      "strategicClassification": "supporting",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 60 },
+        "strategic": { "x": 40 },
+        "shared": { "y": 55 },
+        "distillation": { "x": 40, "y": 55 }
+      },
+      "evolutionStage": "custom-built",
+      "codeSize": { "bucket": "large" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Critical for dapp authentication. Uses People Chain for identity. PoP integration expected mid-December. Delivered via Spektr SDK."
+    },
+    {
+      "id": "ctx.compute",
+      "name": "Compute",
+      "purpose": "On-chain computation and smart contract execution layer",
+      "strategicClassification": "generic",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 30 },
+        "strategic": { "x": 75 },
+        "shared": { "y": 75 },
+        "distillation": { "x": 70, "y": 75 }
+      },
+      "evolutionStage": "commodity/utility",
+      "codeSize": { "bucket": "huge" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Substrate runtime and parachain computation. Foundation layer commodity."
+    },
+    {
+      "id": "ctx.network",
+      "name": "Network (P2P)",
+      "purpose": "Peer-to-peer networking layer for Polkadot relay chain and parachains",
+      "strategicClassification": "generic",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 50 },
+        "strategic": { "x": 78 },
+        "shared": { "y": 75 },
+        "distillation": { "x": 75, "y": 75 }
+      },
+      "evolutionStage": "commodity/utility",
+      "codeSize": { "bucket": "huge" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "P2P networking infrastructure. Foundation layer commodity provided by Polkadot."
+    },
+    {
+      "id": "ctx.storage",
+      "name": "Storage",
+      "purpose": "Hybrid storage strategy: System Remarks, Bulletin Chain, Statement Store, People Chain, NFT Pallet",
+      "strategicClassification": "generic",
+      "boundaryIntegrity": "strong",
+      "positions": {
+        "flow": { "x": 70 },
+        "strategic": { "x": 72 },
+        "shared": { "y": 75 },
+        "distillation": { "x": 72, "y": 75 }
+      },
+      "evolutionStage": "commodity/utility",
+      "codeSize": { "bucket": "huge" },
+      "isLegacy": false,
+      "isExternal": false,
+      "notes": "Multiple storage mechanisms: permanent (System Remarks, NFT metadata), time-bound (Bulletin Chain), ephemeral (Statement Store)."
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel.dapps-papi",
+      "fromContextId": "ctx.dapps",
+      "toContextId": "ctx.papi",
+      "pattern": "customer-supplier",
+      "description": "Dapps consume PAPI for blockchain interactions"
+    },
+    {
+      "id": "rel.dapps-dedot",
+      "fromContextId": "ctx.dapps",
+      "toContextId": "ctx.dedot",
+      "pattern": "customer-supplier",
+      "description": "Dapps may alternatively use Dedot API"
+    },
+    {
+      "id": "rel.polkadot-com-dapps",
+      "fromContextId": "ctx.polkadot-com",
+      "toContextId": "ctx.dapps",
+      "pattern": "customer-supplier",
+      "description": "Polkadot.com distributes and hosts dapps"
+    },
+    {
+      "id": "rel.polkadot-app-dapps",
+      "fromContextId": "ctx.polkadot-app",
+      "toContextId": "ctx.dapps",
+      "pattern": "customer-supplier",
+      "description": "Polkadot App provides authentication and account management to dapps"
+    },
+    {
+      "id": "rel.papi-smoldot",
+      "fromContextId": "ctx.papi",
+      "toContextId": "ctx.smoldot",
+      "pattern": "customer-supplier",
+      "description": "PAPI uses Smoldot light client via ScProvider"
+    },
+    {
+      "id": "rel.dedot-smoldot",
+      "fromContextId": "ctx.dedot",
+      "toContextId": "ctx.smoldot",
+      "pattern": "customer-supplier",
+      "description": "Dedot uses Smoldot light client"
+    },
+    {
+      "id": "rel.substrate-sdk-smoldot",
+      "fromContextId": "ctx.substrate-sdk",
+      "toContextId": "ctx.smoldot",
+      "pattern": "customer-supplier",
+      "description": "Substrate mobile SDKs use Smoldot"
+    },
+    {
+      "id": "rel.smoldot-network",
+      "fromContextId": "ctx.smoldot",
+      "toContextId": "ctx.network",
+      "pattern": "conformist",
+      "description": "Smoldot conforms to Polkadot P2P network protocols"
+    },
+    {
+      "id": "rel.papi-compute",
+      "fromContextId": "ctx.papi",
+      "toContextId": "ctx.compute",
+      "pattern": "conformist",
+      "description": "PAPI interacts with on-chain compute/runtime"
+    },
+    {
+      "id": "rel.dapps-storage",
+      "fromContextId": "ctx.dapps",
+      "toContextId": "ctx.storage",
+      "pattern": "customer-supplier",
+      "description": "Dapps use hybrid storage strategies"
+    },
+    {
+      "id": "rel.dapps-personhood",
+      "fromContextId": "ctx.dapps",
+      "toContextId": "ctx.personhood-identity",
+      "pattern": "customer-supplier",
+      "description": "Dapps rely on identity and authorization services"
+    },
+    {
+      "id": "rel.polkadot-app-personhood",
+      "fromContextId": "ctx.polkadot-app",
+      "toContextId": "ctx.personhood-identity",
+      "pattern": "customer-supplier",
+      "description": "Polkadot App manages identity via People Chain and PoP"
+    },
+    {
+      "id": "rel.dapps-block-indexer",
+      "fromContextId": "ctx.dapps",
+      "toContextId": "ctx.block-indexer",
+      "pattern": "customer-supplier",
+      "description": "Dapps query historical blockchain data via indexer"
+    },
+    {
+      "id": "rel.personhood-storage",
+      "fromContextId": "ctx.personhood-identity",
+      "toContextId": "ctx.storage",
+      "pattern": "customer-supplier",
+      "description": "Identity data stored on People Chain (part of storage layer)"
+    }
+  ],
   "repos": [
     {
       "id": "repo.substrate-connect",
